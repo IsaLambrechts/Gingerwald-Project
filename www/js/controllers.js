@@ -57,10 +57,10 @@ angular.module('app')
 })
 
 .controller('scanCtrl', function($scope, $cordovaBarcodeScanner) {
-    $scope.menu = function(location) {
-        window.location.replace('#/' + location);
+    $scope.cancel = function() {
+        window.location.replace('#/menu');
     };
-    
+    /*
     $scope.scanBarcode = function() {
         console.log("attempting scan");
         $cordovaBarcodeScanner.scan().then(function(imageData) {
@@ -70,5 +70,5 @@ angular.module('app')
         }, function(error) {
             console.log("an error occured: " + error);
         });
-    };
+    };*/
 })
