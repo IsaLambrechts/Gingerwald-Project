@@ -7,7 +7,7 @@ angular.module('app')
         },
         
         redirect : function(location) {
-            window.location.replace('/#/' + location);
+            window.location.replace('#/' + location);
         },
 
         toggleMenu : function() {
@@ -56,8 +56,19 @@ angular.module('app')
     };
 })
 
-.controller('scanCtrl', function($scope) {
+.controller('scanCtrl', function($scope, $cordovaBarcodeScanner) {
     $scope.menu = function(location) {
         window.location.replace('#/' + location);
-    }
+    };
+    
+    $scope.scanBarcode = function() {
+        console.log("attempting scan");
+        $cordovaBarcodeScanner.scan().then(function(imageData) {
+            alert(imageData.text);
+            console.log("format: " + imageData.format);
+            console.log("cancelld: " + imageData.cancelled);
+        }, function(error) {
+            console.log("an error occured: " + error);
+        });
+    };
 })
