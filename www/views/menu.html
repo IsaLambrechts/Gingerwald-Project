@@ -1,11 +1,11 @@
 <ion-side-menus ng-controller="sideMenuCtrl">
-    <ion-header-bar class="bar-stable">
-        <button class="button button-icon" ng-click="toggleMenu()">
-            <i class="icon ion-navicon"></i>
-        </button>
-    </ion-header-bar>
-    
+
     <ion-side-menu-content>
+        <ion-header-bar class="bar-stable">
+            <button class="button button-icon" ng-click="toggleMenu()">
+                <i class="icon ion-navicon"></i>
+            </button>
+        </ion-header-bar>
         <ion-content id="menu" scroll="false">
             <div id="icon-drinks" class="menu-icon" ng-click="drinks()">
             <i class="fa fa-beer fa-5x" aria-hidden="true"></i>
@@ -24,7 +24,8 @@
             </div>
         </ion-content>
     </ion-side-menu-content>
-        
+
+
     <ion-side-menu side="left">
         <ion-content>
             <ion-list>

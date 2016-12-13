@@ -23,20 +23,21 @@ angular.module('app', ['ionic', 'ngRoute', 'ngCordova'])
   });
 })
 
+
 .config(function($routeProvider) {
   $routeProvider
     .when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'loginCtrl'
+      templateUrl: 'views/login.html',
+      controller: 'loginCtrl'
     })
     .when('/menu', {
     	templateUrl: 'views/menu.html',
         controller: 'menuCtrl'
     })
     .when('/scan', {
-        templateUrl: 'views/scan.html',
-        controller: 'scanCtrl'
-    })
+      templateUrl: 'views/scan.html',
+      controller: 'scanCtrl'
+  })
     .otherwise({
     	redirectTo: '/login'
     });
