@@ -5,7 +5,7 @@ angular.module('app')
         logout : function() {
             window.location.replace('');
         },
-        
+
         redirect : function(location) {
             window.location.replace('#/' + location);
         },
@@ -17,13 +17,13 @@ angular.module('app')
 })
 
 .controller('sideMenuCtrl', function($scope, menuSrv) {
-    $scope.redirect = function(location) { 
+    $scope.redirect = function(location) {
         menuSrv.toggleMenu();
-        menuSrv.redirect(location); 
+        menuSrv.redirect(location);
     };
     $scope.toggleMenu = function() { menuSrv.toggleMenu(); };
-    $scope.logout = function() { 
-        menuSrv.logout(); 
+    $scope.logout = function() {
+        menuSrv.logout();
     };
 })
 
@@ -36,15 +36,15 @@ angular.module('app')
 })
 
 .controller('menuCtrl', function($scope) {
-    
-    $scope.redirect = function(location) { 
+
+    $scope.redirect = function(location) {
         window.location.replace('#/' + location); };
-    
+
     $scope.key;
 	$scope.credits;
-    
+
     $scope.user = {key: 'placeholder', credits: '12345'};
-    
+
     $scope.drinks = function() {
         console.log("drink function");
     };
@@ -60,7 +60,7 @@ angular.module('app')
     $scope.cancel = function() {
         window.location.replace('#/menu');
     };
-    
+
     $scope.scanBarcode = function() {
         console.log("attempting scan");
         $cordovaBarcodeScanner.scan().then(function(imageData) {
@@ -72,3 +72,7 @@ angular.module('app')
         });
     };
 })
+
+.controller('dashboardCtrl', function($scope){
+  
+});
