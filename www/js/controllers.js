@@ -18,12 +18,7 @@ angular.module('app')
         },
 
         redirect : function(location) {
-<<<<<<< HEAD
-            window.location.replace('#/' + location);
-=======
-            //window.location.replace('/#/' + location);
             $window.location.href = '/#/' + location;
->>>>>>> master
         },
 
         toggleMenu : function() {
@@ -80,7 +75,6 @@ angular.module('app')
     };
 })
 
-<<<<<<< HEAD
 .controller('scanCtrl', function($scope, $cordovaBarcodeScanner, $cordovaCamera) {
     $scope.cancel = function() {
         window.location.replace('#/menu');
@@ -97,10 +91,3 @@ angular.module('app')
         });
     };
 })
-=======
-.controller('scanCtrl', function($scope) {
-    $scope.menu = function(location) {
-        window.location.replace('#/' + location);
-    }
-})
->>>>>>> master
