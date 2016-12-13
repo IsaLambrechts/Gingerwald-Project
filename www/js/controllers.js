@@ -56,19 +56,19 @@ angular.module('app')
     };
 })
 
-.controller('scanCtrl', function($scope, $cordovaBarcodeScanner) {
+.controller('scanCtrl', function($scope, $cordovaBarcodeScanner, $cordovaCamera) {
     $scope.cancel = function() {
         window.location.replace('#/menu');
     };
-    /*
+    
     $scope.scanBarcode = function() {
         console.log("attempting scan");
         $cordovaBarcodeScanner.scan().then(function(imageData) {
             alert(imageData.text);
             console.log("format: " + imageData.format);
-            console.log("cancelld: " + imageData.cancelled);
+            console.log("cancelled: " + imageData.cancelled);
         }, function(error) {
-            console.log("an error occured: " + error);
+            alert("an error occured: " + error);
         });
-    };*/
+    };
 })
