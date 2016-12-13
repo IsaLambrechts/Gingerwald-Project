@@ -1,0 +1,67 @@
+<ion-side-menus ng-controller="sideMenuCtrl">
+    <ion-header-bar class="bar-stable">
+        <button class="button button-icon" ng-click="toggleMenu()">
+            <i class="icon ion-navicon"></i>
+        </button>
+    </ion-header-bar>
+    
+    <ion-side-menu-content>
+        <ion-content id="menu" scroll="false">
+            <div id="icon-drinks" class="menu-icon" ng-click="drinks()">
+            <i class="fa fa-beer fa-5x" aria-hidden="true"></i>
+            </div>
+            <div id="icon-shopping-cart" class="menu-icon" ng-click="cart()">
+                <i class="fa fa-shopping-cart fa-5x" aria-hidden="true"></i>
+            </div>
+            <div id="icon-stats" class="menu-icon" ng-click="stats()">
+                <i class="fa fa-bar-chart fa-5x" aria-hidden="true"></i>
+            </div>
+            <div id="icon-qr-code" class="menu-icon" ng-click="redirect('scan')">
+                <i class="fa fa-qrcode fa-5x" aria-hidden="true"></i>
+            </div>
+            <div>
+                <p>Your key: {{user.key}}</br>#{{user.credits}} credits left.</p>
+            </div>
+        </ion-content>
+    </ion-side-menu-content>
+        
+    <ion-side-menu side="left">
+        <ion-content>
+            <ion-list>
+                <ion-item ng-click="redirect('menu')">
+                    Menu
+                </ion-item>
+                <ion-item>
+                    My Profile
+                </ion-item>
+                <ion-item>
+                    My Dashboard
+                </ion-item>
+                <ion-item>
+                    Buy Credits
+                </ion-item>
+                <ion-item ng-click="redirect('scan')">
+                    Scan bottle
+                </ion-item>
+                <ion-item>
+                    Juices of the day
+                </ion-item>
+                <ion-item>
+                    Invite someone
+                </ion-item>
+                <ion-item>
+                    gift
+                </ion-item>
+                <ion-item>
+                    vote
+                </ion-item>
+                <ion-item>
+                    Joke of the day
+                </ion-item>
+                <ion-item ng-click="logout()">
+                    Log out
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>
