@@ -37,6 +37,10 @@ angular.module('app', ['ionic', 'ngRoute', 'ngCordova'])
         templateUrl: 'views/scan.html',
         controller: 'scanCtrl'
     })
+    .when('/dashboard', {
+      templateUrl: 'views/dashboard.html',
+      controller: 'dashboardCtrl'
+    })
     .otherwise({
     	redirectTo: '/login'
     });

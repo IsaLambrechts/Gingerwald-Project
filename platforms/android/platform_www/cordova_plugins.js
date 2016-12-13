@@ -72,6 +72,14 @@ module.exports = [
         "clobbers": [
             "CameraPopoverHandle"
         ]
+    },
+    {
+        "id": "cordova-plugin-android-permissions.Permissions",
+        "file": "plugins/cordova-plugin-android-permissions/www/permissions.js",
+        "pluginId": "cordova-plugin-android-permissions",
+        "clobbers": [
+            "cordova.plugins.permissions"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -85,7 +93,8 @@ module.exports.metadata =
     "ionic-plugin-keyboard": "2.2.1",
     "phonegap-plugin-barcodescanner": "4.0.1",
     "cordova-plugin-compat": "1.1.0",
-    "cordova-plugin-camera": "2.3.1"
+    "cordova-plugin-camera": "2.3.1",
+    "cordova-plugin-android-permissions": "0.10.0"
 };
 // BOTTOM OF METADATA
 });

@@ -4,7 +4,7 @@
             <i class="icon ion-navicon"></i>
         </button>
     </ion-header-bar>
-    
+
     <ion-side-menu-content>
         <ion-content id="menu" scroll="false">
             <div id="icon-drinks" class="menu-icon" ng-click="drinks()">
@@ -13,7 +13,7 @@
             <div id="icon-shopping-cart" class="menu-icon" ng-click="cart()">
                 <i class="fa fa-shopping-cart fa-5x" aria-hidden="true"></i>
             </div>
-            <div id="icon-stats" class="menu-icon" ng-click="stats()">
+            <div id="icon-stats" class="menu-icon" ng-click="redirect('dashboard')">
                 <i class="fa fa-bar-chart fa-5x" aria-hidden="true"></i>
             </div>
             <div id="icon-qr-code" class="menu-icon" ng-click="redirect('scan')">
@@ -24,7 +24,7 @@
             </div>
         </ion-content>
     </ion-side-menu-content>
-        
+
     <ion-side-menu side="left">
         <ion-content>
             <ion-list>
@@ -34,7 +34,7 @@
                 <ion-item>
                     My Profile
                 </ion-item>
-                <ion-item>
+                <ion-item ng-click="redirect('dashboard')">
                     My Dashboard
                 </ion-item>
                 <ion-item>
