@@ -71,7 +71,7 @@ angular.module('app')
             alert("an error occured: " + error);
         });
     };
-    
+
     var permissions = cordova.plugins.permissions;
     permissions.hasPermission(permissions.CAMERA, checkPermissionCallback, null);
 
@@ -91,6 +91,17 @@ angular.module('app')
     };
 })
 
-.controller('dashboardCtrl', function($scope){
-  
+.controller('dashboardCtrl', function($scope, $http){
+  /*let url = "https://www.gingerwald.com/community/v2.1/api/getUserDetails.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&callback=JSON_CALLBACK";
+  $http.jsonp(url)
+  .success(function(data){
+    console.log(data);
+    console.log("werkt");
+  })
+  .error(function(){
+    console.log("kut");
+  })*/
+  console.log(moment().startOf('week').fromNow());
+  console.log(moment().weekday(0));
+
 });

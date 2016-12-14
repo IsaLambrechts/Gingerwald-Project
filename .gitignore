@@ -1,10 +1,6 @@
-hooks/
-res/
-config.xml
-platforms/
-resources/
-gulpfile.js
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
 node_modules/
+platforms/
 plugins/
-scss/
-.editorconfig
