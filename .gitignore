@@ -1,14 +1,10 @@
-bower.json
 hooks/
-package.json
 res/
 config.xml
-ionic.config.json
 platforms/
 resources/
 gulpfile.js
 node_modules/
 plugins/
 scss/
-.bowerrc
 .editorconfig
