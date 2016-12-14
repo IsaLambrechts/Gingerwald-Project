@@ -1,8 +1,15 @@
+let loggedIn = false;
+let url = 'https://gingerwald.com/community/v2.1/';
+/* placeholder token for developement */
+let token = 'CvBFRdXboqHC8eCOm0ONXRwtBsIWIpgYI5QZ0BsKQzHHSc3PCkg3E4su4J8P3vPa';
+let drink;
+
 angular.module('app')
 
 .factory('menuSrv', function($ionicSideMenuDelegate) {
     return {
         logout : function() {
+            loggedIn = false;
             window.location.replace('');
         },
 
@@ -12,6 +19,26 @@ angular.module('app')
 
         toggleMenu : function() {
             $ionicSideMenuDelegate.toggleLeft();
+        }
+    };
+})
+
+.factory('scanSrv', function($http) {
+    return {
+        scanDrink : function(string) {
+            /* disabled for developement 
+            return $http.jsonp(url + 'api/getJuiceDetails.php?token=' + token + '&bottle_token=' + string);
+            developement code */
+            return { 
+                Juice: {
+                    ID: 16,
+                    Name: "Cucumber Mojito",
+                    CatalogNumber: 16,
+                    Description: "OK, it's not the real Cuban mojito, but this is what Hemingway probably would have invented if he had a daytime job where no(t too much) alcohol was allowed.\nGo south of the border with this juice, and enjoy the easy nutrients and vitamins coming your way.",
+                    PictureName: "cucumber-grape-lime-mint.png",
+                    Amount_ml: 105
+                }
+            };
         }
     };
 })
@@ -31,8 +58,13 @@ angular.module('app')
 	$scope.login = function() {
 		let email = document.getElementById('email').value; // plantijn002@gingerwald.be
 		let password = document.getElementById('password').value; // gingerjuice
+        loggedIn = true;
         $location.url('menu');
-	}
+	};
+    
+    $scope.scan = function() {
+        $location.url('scan');
+    }
 })
 
 .controller('menuCtrl', function($scope) {
@@ -56,12 +88,13 @@ angular.module('app')
     };
 })
 
-.controller('scanCtrl', function($scope, $cordovaBarcodeScanner, $cordovaCamera) {
+.controller('scanCtrl', function($scope, $cordovaBarcodeScanner, scanSrv) {
     $scope.cancel = function() {
         window.location.replace('#/menu');
     };
 
     $scope.scanBarcode = function() {
+        /* disabled for developement 
         console.log("attempting scan");
         $cordovaBarcodeScanner.scan().then(function(imageData) {
             alert(imageData.text);
@@ -70,8 +103,12 @@ angular.module('app')
         }, function(error) {
             alert("an error occured: " + error);
         });
+        */
+        /* execute on success  // should respond on promise */
+        drink = scanSrv.scanDrink(16);
+        window.location.replace('#/bottleDetails');
     };
-    
+    /* disabled for developement
     var permissions = cordova.plugins.permissions;
     permissions.hasPermission(permissions.CAMERA, checkPermissionCallback, null);
 
@@ -88,9 +125,28 @@ angular.module('app')
           },
           errorCallback);
       }
+    };*/
+})
+
+.controller('juiceCtrl', function($scope) {
+    $scope.drink = drink;
+    $scope.loggedIn = loggedIn;
+    
+    $scope.addToDash = function() {
+        window.location.replace('#/dashboard');
     };
+    
+    $scope.cancel = function() {
+        window.location.replace('#/menu');
+    };
+    
+    $scope.login = function() {
+        /* login logic */
+        loggedIn = $scope.loggedIn = true;
+        window.location.replace('#/bottleDetails');
+    }
 })
 
 .controller('dashboardCtrl', function($scope){
   
-});
+})
