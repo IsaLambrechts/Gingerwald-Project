@@ -1,0 +1,11 @@
+<ionic-content scroll="false">
+    <h1 style="padding:10% 0 10% 0; height: 30%; margin: 0;">{{drink.Juice.Name}}</h1>
+    <div style="height:70%;" ng-if="loggedIn">
+        <button class="button button-calm" ng-click="addToDash()">Add to dash</button>
+        <button class="button button-calm" ng-click="cancel()">Cancel</button>
+    </div>
+    <div style="height:70%;" ng-if="loggedIn == false">
+        <button class="button button-calm" ng-click="login()">Login</button>
+        <button class="button button-calm">Register</button>
+    </div>
+</ionic-content>
