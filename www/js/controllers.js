@@ -26,10 +26,10 @@ angular.module('app')
 .factory('scanSrv', function($http) {
     return {
         scanDrink : function(string) {
-            /* disabled for developement 
+            /* disabled for developement
             return $http.jsonp(url + 'api/getJuiceDetails.php?token=' + token + '&bottle_token=' + string);
             developement code */
-            return { 
+            return {
                 Juice: {
                     ID: 16,
                     Name: "Cucumber Mojito",
@@ -61,7 +61,7 @@ angular.module('app')
         loggedIn = true;
         $location.url('menu');
 	};
-    
+
     $scope.scan = function() {
         $location.url('scan');
     }
@@ -94,7 +94,7 @@ angular.module('app')
     };
 
     $scope.scanBarcode = function() {
-        /* disabled for developement 
+        /* disabled for developement
         console.log("attempting scan");
         $cordovaBarcodeScanner.scan().then(function(imageData) {
             alert(imageData.text);
@@ -131,15 +131,15 @@ angular.module('app')
 .controller('juiceCtrl', function($scope) {
     $scope.drink = drink;
     $scope.loggedIn = loggedIn;
-    
+
     $scope.addToDash = function() {
         window.location.replace('#/dashboard');
     };
-    
+
     $scope.cancel = function() {
         window.location.replace('#/menu');
     };
-    
+
     $scope.login = function() {
         /* login logic */
         loggedIn = $scope.loggedIn = true;
@@ -148,16 +148,38 @@ angular.module('app')
 })
 
 .controller('dashboardCtrl', function($scope, $http){
-  /*let url = "https://www.gingerwald.com/community/v2.1/api/getUserDetails.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&callback=JSON_CALLBACK";
-  $http.jsonp(url)
-  .success(function(data){
-    console.log(data);
-    console.log("werkt");
-  })
-  .error(function(){
-    console.log("kut");
-  })*/
-  console.log(moment().startOf('week').fromNow());
-  console.log(moment().weekday(0));
-
+  $scope.divShow = "week"
+  $scope.show = function(x) {
+    if(x == 'week'){
+      $scope.divShow = "week";
+      $scope.start = moment().startOf('week');
+      $scope.end = moment().endOf('week');
+      $scope.startWeek = $scope.start.format("DD/MM");
+      $scope.endWeek = $scope.end.format("DD/MM");
+      $scope.back = function(){
+        $scope.startWeek = $scope.start.add(-1, 'weeks').format("DD/MM");
+        $scope.endWeek = $scope.end.add(-1, 'weeks').format("DD/MM");
+      }
+      $scope.forward = function(){
+        $scope.startWeek = $scope.start.add(1, 'weeks').format("DD/MM");
+        $scope.endWeek = $scope.end.add(1, 'weeks').format("DD/MM");
+      }
+    }else if(x == 'maand'){
+      $scope.divShow = "maand";
+      $scope.start = moment().startOf('month');
+      $scope.end = moment();
+      $scope.startMonth = $scope.start.format("DD/MM");
+      $scope.endMonth = $scope.end.endOf('month').format("DD/MM");
+      $scope.back = function(){
+        $scope.startMonth = $scope.start.add(-1, 'months').format("DD/MM");
+        $scope.endMonth = $scope.end.add(-1, 'months').endOf('month').format("DD/MM");
+      }
+      $scope.forward = function(){
+        $scope.startMonth = $scope.start.add(1, 'months').format("DD/MM");
+        $scope.endMonth = $scope.end.add(1, 'months').endOf('month').format("DD/MM");
+      }
+    }else{
+      $scope.divShow = "ever";
+    }
+  }
 })
