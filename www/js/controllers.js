@@ -5,6 +5,8 @@ let token = 'CvBFRdXboqHC8eCOm0ONXRwtBsIWIpgYI5QZ0BsKQzHHSc3PCkg3E4su4J8P3vPa';
 let client_id = 'GingerwaldUserApp11';
 let client_secret = 'HvU5T8VcUBMV1rmjOPsLNSQ3hjsAolNQXu7kVOikJWX7vdiQpXca7UqVevZPgh8E';
 let drink;
+let userCredits;
+let userKey;
 
 angular.module('app')
 
@@ -27,6 +29,25 @@ angular.module('app')
         logout : function() {
             loggedIn = false;
             window.location.replace('');
+        },
+        
+        fetchUserData : function() {
+            return $.ajax({
+                type: 'GET',
+                url: 'https://gingerwald.com/community/v2.1/api/getUserDetails.php?token=CvBFRdXboqHC8eCOm0ONXRwtBsIWIpgYI5QZ0BsKQzHHSc3PCkg3E4su4J8P3vPa',
+                dataType: 'json',
+                success: function(data) {
+                    userCredits = data.User.NumberCredits;
+                    userKey = data.User.Login;
+                },
+                error: function(err) {
+                    console.log('userdata not available: ' + err);
+                }
+            });
+        },
+        
+        getUserData : function() {
+            return {credits: userCredits, key: userKey};
         },
 
         redirect : function(location) {
@@ -121,7 +142,11 @@ angular.module('app')
 	$scope.login = function() {
 		let email = 'plantijn002@gingerwald.be' // document.getElementById('email').value; // plantijn002@gingerwald.be
 		let password = 'gingerjuice' // document.getElementById('password').value; // gingerjuice
-        $location.url('menu');
+        menuSrv.fetchUserData()
+            .then( 
+            function() {
+                window.location.replace('#/menu');
+            });
         /*
         menuSrv.login(email, password).then(function(data) {
             loggedIn = true;
@@ -134,15 +159,12 @@ angular.module('app')
     }
 })
 
-.controller('menuCtrl', function($scope) {
+.controller('menuCtrl', function($scope, menuSrv) {
 
     $scope.redirect = function(location) {
         window.location.replace('#/' + location); };
 
-    $scope.key;
-	$scope.credits;
-
-    $scope.user = {key: 'placeholder', credits: '12345'};
+    $scope.user = menuSrv.getUserData();
 
     $scope.drinks = function() {
         console.log("drink function");
