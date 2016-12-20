@@ -5,6 +5,10 @@ let token = 'CvBFRdXboqHC8eCOm0ONXRwtBsIWIpgYI5QZ0BsKQzHHSc3PCkg3E4su4J8P3vPa';
 let client_id = 'GingerwaldUserApp11';
 let client_secret = 'HvU5T8VcUBMV1rmjOPsLNSQ3hjsAolNQXu7kVOikJWX7vdiQpXca7UqVevZPgh8E';
 let drink;
+var names = [];
+var amount = [];
+var namesN = [];
+var amountN = [];
 
 angular.module('app')
 
@@ -46,7 +50,7 @@ angular.module('app')
             return $http.jsonp(url + 'api/getJuiceDetails.php?token=' + token + '&bottle_token=' + string);
 
             developement code *
-            return { 
+            return {
                 Juice: {
                     ID: 16,
                     Name: "Cucumber Mojito",
@@ -92,12 +96,22 @@ angular.module('app')
             if (from !== null && to !== null) {
                 dashUrl.concat('&report_from=', from, '&report_to=', to);
             }
-            return $.ajax({
+            $.ajax({
                 type: 'GET',
                 url: dashUrl,
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data);
+                  for(var i = 0; i < data.Ingredients.length ; i++){
+                    names.push(data.Ingredients[i].Ingredient.Name);
+                    amount.push(data.Ingredients[i].Ingredient.Amount_g);
+                  }
+                  for(var i = 0; i < data.Nutrients.length; i++){
+                    namesN.push(data.Nutrients[i].Nutrient.Name);
+                    amountN.push(data.Nutrients[i].Nutrient.Amount_g);
+                  }
+                  console.log(names);
+                  return names;
+
                 },
                 error: function() {
                     console.log('nope');
@@ -222,7 +236,7 @@ angular.module('app')
     }
 })
 
-.controller('dashboardCtrl', function($scope, $http){
+.controller('dashboardCtrl', function($scope, $http, dashboardSrv){
   $scope.divShow = "week"
   $scope.show = function(x) {
     if(x == 'week'){
@@ -257,4 +271,9 @@ angular.module('app')
       $scope.divShow = "ever";
     }
   }
+
+  $scope.labels = names;
+  $scope.data = [65, 59, 80, 81, 56, 55, 40];
+  console.log(dashboardSrv.getUserDash());
+  console.log($scope.labels);
 })

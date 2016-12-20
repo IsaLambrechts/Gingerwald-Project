@@ -6,28 +6,39 @@
     <button class="button" ng-click="show('ever')" style="width: 32%">Ever</button>
   </div>
 <br>
-    <div ng-show="divShow == 'week'" class="container" style="color: white; ; display: table; text-align: center; vertical-align: middle; font-size: 24px">
-      <div style="width: 7%; display: table-cell;">
-        <img src="img/circle_left.png" ng-click="back()"/>
+    <div ng-show="divShow == 'week'" class="container" style="color: white;padding: 1.5em ; display: table; text-align: center; vertical-align: middle; font-size: 24px">
+      <div style="display: table-cell; width: 7%">
+        <img src="img/circle_left.png" ng-click="back()" style="position:relative; top: 50% ; transform: translateY(-50%)"/>
       </div>
-      <div>
+      <div style="text-align: center; position:relative; top: 50% ; transform: translateY(-50%)">
       {{startWeek}}-{{endWeek}}
       </div>
-      <div style="width:50px; width: 7%; display:table-cell;">
-        <img src="img/circle_right.png" ng-click="forward()"/>
+      <div style=" width: 7%; display:table-cell;">
+        <img src="img/circle_right.png" ng-click="forward()" style=" position:relative; top: 50% ; transform: translateY(-50%)"/>
       </div>
     </div>
-    <div ng-show="divShow == 'maand'" class="container" style="color: white; display: table; text-align: center; vertical-align: middle; font-size: 24px">
+    <div ng-show="divShow == 'maand'" class="container" style="color: white; padding: 1.5em; display: table; text-align: center; vertical-align: middle; font-size: 24px">
       <div style="width: 7%; display: table-cell;">
-        <img src="img/circle_left.png" ng-click="back()"/>
+        <img src="img/circle_left.png" ng-click="back()" style=" position:relative; top: 50% ; transform: translateY(-50%)"/>
       </div>
-      <div>
+      <div style="text-align: center; position:relative; top: 50% ; transform: translateY(-50%)">
       {{startMonth}}-{{endMonth}}
       </div>
       <div style="width:50px; width: 7%; display:table-cell;">
-        <img src="img/circle_right.png" ng-click="forward()"/>
+        <img src="img/circle_right.png" ng-click="forward()" style=" position:relative; top: 50% ; transform: translateY(-50%)"/>
       </div>
     </div>
     <div ng-hide="divShow == 'ever'" style="color: white; width: 33% ; display: table-cell; text-align: center; vertical-align: middle; font-size: 24px">
     </div>
 </div>
+  <div class="card">
+        <!--div class="item item-divider">
+            A bar chart
+        </div>
+        <div class="item item-text-wrap">
+            <canvas id="bar" class="chart chart-bar" data="data" labels="labels" options="{showTooltips: false}"></canvas>
+        </div>
+    </div-->
+
+<!--button class="button button-block">INGREDIENTS</button>
+<button class="button button-block">NUTRIENTS</button-->
