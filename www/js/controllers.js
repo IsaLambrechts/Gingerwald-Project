@@ -2,12 +2,28 @@ let loggedIn = false;
 let url = 'https://gingerwald.com/community/v2.1/';
 /* placeholder token for developement */
 let token = 'CvBFRdXboqHC8eCOm0ONXRwtBsIWIpgYI5QZ0BsKQzHHSc3PCkg3E4su4J8P3vPa';
+let client_id = 'GingerwaldUserApp11';
+let client_secret = 'HvU5T8VcUBMV1rmjOPsLNSQ3hjsAolNQXu7kVOikJWX7vdiQpXca7UqVevZPgh8E';
 let drink;
 
 angular.module('app')
 
-.factory('menuSrv', function($ionicSideMenuDelegate) {
+.factory('menuSrv', function($ionicSideMenuDelegate, $http) {
     return {
+        login : function(email, password) {
+           return $http.post(url.concat('/authorization/oauth/token.php?grant_type=password&username=', email, '&password=', password, '&client_id=', client_id, '&client_secret=', client_secret));
+           /* return $.ajax({
+                type: 'POST',
+                url: url.concat('/authorization/oauth/token.php?grant_type="password"&username=', email, '&password=', password, '&client_id=', client_id, '&client_secret=', client_secret),
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function() {
+                    console.log('things went wrong');
+                }
+            });*/
+        },
         logout : function() {
             loggedIn = false;
             window.location.replace('');
@@ -28,7 +44,7 @@ angular.module('app')
         scanDrink : function(string) {
             /* disabled for developement 
             return $http.jsonp(url + 'api/getJuiceDetails.php?token=' + token + '&bottle_token=' + string);
-            developement code */
+            developement code *
             return { 
                 Juice: {
                     ID: 16,
@@ -38,7 +54,54 @@ angular.module('app')
                     PictureName: "cucumber-grape-lime-mint.png",
                     Amount_ml: 105
                 }
-            };
+            };*/
+            return $.ajax({
+                type: 'GET',
+                url: url.concat('api/getBottleDetails.php?token=', token, '&bottle_token=', string),
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function() {
+                    console.log('nope');
+                }
+            });
+        },
+        
+        addToDash : function(bottle_token) {
+            return $.ajax({
+                type: 'POST',
+                url: url.concat('api/addBottleToDashboard.php?token=', token, '&bottle_token=', bottle_token),
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function() {
+                    console.log('nope');
+                }
+            });
+        }
+    };
+})
+
+.factory('dashboardSrv', function() {
+    return {
+        getUserDash : function(from, to) {
+            var dashUrl = url.concat('api/getUserDashboard.php?token=', token);
+            if (from !== null && to !== null) {
+                dashUrl.concat('&report_from=', from, '&report_to=', to);
+            }
+            return $.ajax({
+                type: 'GET',
+                url: dashUrl,
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function() {
+                    console.log('nope');
+                }
+            });
         }
     };
 })
@@ -56,10 +119,14 @@ angular.module('app')
 
 .controller('loginCtrl', function($scope, $http, $location, menuSrv) {
 	$scope.login = function() {
-		let email = document.getElementById('email').value; // plantijn002@gingerwald.be
-		let password = document.getElementById('password').value; // gingerjuice
-        loggedIn = true;
+		let email = 'plantijn002@gingerwald.be' // document.getElementById('email').value; // plantijn002@gingerwald.be
+		let password = 'gingerjuice' // document.getElementById('password').value; // gingerjuice
         $location.url('menu');
+        /*
+        menuSrv.login(email, password).then(function(data) {
+            loggedIn = true;
+            $location.url('menu');
+        });*/
 	};
     
     $scope.scan = function() {
@@ -92,7 +159,12 @@ angular.module('app')
     $scope.cancel = function() {
         window.location.replace('#/menu');
     };
-
+    
+    /**
+    barcodes:
+    http://qr.gingerwald.com?b=Lh3UGloz6ya624
+    http://qr.gingerwald.com?b=3DJ3DnJxtSem6W
+    **/
     $scope.scanBarcode = function() {
         /* disabled for developement 
         console.log("attempting scan");
@@ -105,7 +177,7 @@ angular.module('app')
         });
         */
         /* execute on success  // should respond on promise */
-        drink = scanSrv.scanDrink(16);
+        drink = scanSrv.scanDrink('Lh3UGloz6ya624');
         window.location.replace('#/bottleDetails');
     };
     /* disabled for developement
@@ -128,11 +200,13 @@ angular.module('app')
     };*/
 })
 
-.controller('juiceCtrl', function($scope) {
+.controller('juiceCtrl', function($scope, scanSrv) {
     $scope.drink = drink;
     $scope.loggedIn = loggedIn;
     
     $scope.addToDash = function() {
+        /* disabled for developement
+        scanSrv.addToDash('Lh3UGloz6ya624'); */
         window.location.replace('#/dashboard');
     };
     
