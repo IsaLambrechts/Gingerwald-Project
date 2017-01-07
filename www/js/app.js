@@ -45,6 +45,10 @@ angular.module('app', ['ionic', 'ngRoute', 'ngCordova'])
       templateUrl: 'views/bottleDetails.html',
       controller: 'juiceCtrl'
     })
+    .when('/added', {
+      templateUrl: 'views/bottleAdded.html',
+      controller: 'juiceCtrl'
+    })
     .otherwise({
     	redirectTo: '/login'
     });

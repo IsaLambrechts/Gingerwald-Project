@@ -95,11 +95,11 @@ angular.module('app')
     $scope.loggedIn = loggedIn;
     
     $scope.addToDash = function() {
-        /* disabled for developement */
+        /* disabled for developement 
         scanSrv.addToDash().then(function() {
-            window.location.replace('#/dashboard');
-        });
-        //window.location.replace('#/dashboard');
+            window.location.replace('#/added');
+        });*/
+        window.location.replace('#/added');
     };
     
     $scope.cancel = function() {
@@ -108,6 +108,10 @@ angular.module('app')
     
     $scope.login = function() {
         window.location.replace('#/login');
+    }
+    
+    $scope.toDash = function() {
+        window.location.replace('#/dashboard');
     }
 })
 
