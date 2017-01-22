@@ -31,14 +31,7 @@
     <div ng-hide="divShow == 'ever'" style="color: white; width: 33% ; display: table-cell; text-align: center; vertical-align: middle; font-size: 24px">
     </div>
 </div>
-  <div class="card">
-        <!--div class="item item-divider">
-            A bar chart
-        </div>
-        <div class="item item-text-wrap">
-            <canvas id="bar" class="chart chart-bar" data="data" labels="labels" options="{showTooltips: false}"></canvas>
-        </div>
-    </div-->
+<nvd3 options="options" data="data" api="api"></nvd3>
 
-<!--button class="button button-block">INGREDIENTS</button>
-<button class="button button-block">NUTRIENTS</button-->
+<button class="button button-block" ng-click="ingredients()">INGREDIENTS</button>
+<button class="button button-block" ng-click="nutrients()">NUTRIENTS</button>

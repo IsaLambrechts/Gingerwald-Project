@@ -9,6 +9,8 @@ var names = [];
 var amount = [];
 var namesN = [];
 var amountN = [];
+var grouped = [];
+var groupedN = [];
 
 angular.module('app')
 
@@ -96,7 +98,7 @@ angular.module('app')
             if (from !== null && to !== null) {
                 dashUrl.concat('&report_from=', from, '&report_to=', to);
             }
-            $.ajax({
+            return $.ajax({
                 type: 'GET',
                 url: dashUrl,
                 dataType: 'json',
@@ -109,8 +111,14 @@ angular.module('app')
                     namesN.push(data.Nutrients[i].Nutrient.Name);
                     amountN.push(data.Nutrients[i].Nutrient.Amount_g);
                   }
-                  console.log(names);
-                  return names;
+                  for(var i = 0; i < names.length; i++){
+                    grouped.push({"label": names[i], "value": amount[i]})
+                  }
+
+                  for (var i = 0; i < namesN.length; i++) {
+                    groupedN.push({"label": namesN[i], "value": amountN[i]});
+                  }
+
 
                 },
                 error: function() {
@@ -237,6 +245,8 @@ angular.module('app')
 })
 
 .controller('dashboardCtrl', function($scope, $http, dashboardSrv){
+  $scope.grouped = [];
+  $scope.group = [];
   $scope.divShow = "week"
   $scope.show = function(x) {
     if(x == 'week'){
@@ -272,8 +282,54 @@ angular.module('app')
     }
   }
 
-  $scope.labels = names;
-  $scope.data = [65, 59, 80, 81, 56, 55, 40];
   console.log(dashboardSrv.getUserDash());
-  console.log($scope.labels);
+  $scope.names = names;
+  $scope.amount = amount;
+  $scope.namesN = namesN;
+  $scope.amountN = amountN;
+  $scope.grouped = grouped;
+  $scope.groupedN = groupedN;
+
+  console.log($scope.grouped)
+  $scope.options = {
+            chart: {
+                type: 'multiBarHorizontalChart',
+                height: 450,
+                x: function(d){return d.label;},
+                y: function(d){return d.value;},
+                showControls: false,
+                showValues: false,
+                duration: 500,
+                xAxis: {
+                    showMaxMin: false
+                },
+                yAxis: {
+                    axisLabel: 'Hoeveelheid',
+                    axisLabelDistance: 20,
+                    tickFormat: function(d){
+                        return d3.format(',.6f')(d);
+                    }
+                }
+            }
+    };
+
+    $scope.data = [{
+      "key": "ingredients",
+      "values": $scope.grouped
+    }]
+
+    $scope.ingredients = function(){
+      $scope.data = [{
+        "key": "ingredients",
+        "values": $scope.grouped
+      }]
+    }
+    $scope.nutrients = function(){
+      $scope.data = [{
+        "key": "nutrients",
+        "values": $scope.groupedN
+      }]
+
+    }
+
 })
