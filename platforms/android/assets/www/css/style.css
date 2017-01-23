@@ -1,3 +1,20 @@
+body, ion-side-menu-content {
+    background-image: url(../img/background_chalkboard_smartphone.png);
+    background-repeat: repeat-y;
+    background-size: cover;
+}
+
+.menu-left {
+    background-image: url(../img/background_wood_smartphone_horizontal.png);
+    background-size: cover;
+}
+
+.item {
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border-color: gray;
+}
+
 #menu {
     height: 80%;
     width: 100%;
@@ -30,6 +47,7 @@
     height: auto;
     position: relative;
     top: 50%;
+    color: white;
 }
 
 #icon-drinks > i{
@@ -86,4 +104,26 @@ input {
 
 h1 {
     text-align: center;
+}
+
+.pageHeader {
+    margin: 0;
+    height: 30%;
+    padding:10% 0 10% 0;
+    color: white;
+}
+
+.pageBody {
+    height: 70%;
+}
+
+@media .menu-left and (z-index: -1) {
+    body {
+        background-image: none;
+    }
+    .menu-content {
+        -webkit-transform: translateY(100%) !important;
+        transform: translateY(100%) !important;
+        
+    }
 }
