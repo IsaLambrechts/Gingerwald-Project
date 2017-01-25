@@ -49,6 +49,10 @@ angular.module('app', ['ionic', 'ngRoute', 'ngCordova', 'nvd3'])
       templateUrl: 'views/bottleAdded.html',
       controller: 'juiceCtrl'
     })
+  .when('/community', {
+      templateUrl: 'views/community.html',
+      controller: 'menuCtrl'
+  })
     .otherwise({
     	redirectTo: '/login'
     });

@@ -56,7 +56,7 @@ angular.module('app')
     };
 })
 
-.controller('loginCtrl', function($scope, $location, loginSrv, menuSrv) {
+.controller('loginCtrl', function($scope, $location, loginSrv, menuSrv, $ionicPlatform) {
 	$scope.login = function() {
 		let email = document.getElementById('email').value; // plantijn002@gingerwald.be
 		let password = document.getElementById('password').value; // gingerjuice
@@ -76,10 +76,29 @@ angular.module('app')
     $scope.scan = function() {
         $location.url('scan');
     }
+    
+    $ionicPlatform.registerBackButtonAction(function(event) {
+        
+        switch ($location.path()) {
+                case '/login':
+                case '/menu': {
+                    navigator.app.exitApp();
+                }
+                break;
+                default: {
+                    if (loggedIn) {
+                        window.location.replace('#/menu');
+                    } else {
+                        window.location.replace('#/login');
+                    }
+                }
+                break;
+        }
+    }, 100);
 })
 
 .controller('menuCtrl', function($scope, menuSrv) {
-
+    
     $scope.redirect = function(location) {
         window.location.replace('#/' + location); };
 
@@ -91,12 +110,10 @@ angular.module('app')
     $scope.cart = function() {
         console.log("cart function");
     };
-    $scope.stats = function() {
-        console.log("stats function");
-    };
 })
 
 .controller('scanCtrl', function($scope, scanSrv) {
+    
     $scope.cancel = function() {
         window.location.replace('#/menu');
     };
@@ -144,6 +161,7 @@ angular.module('app')
         scanSrv.addToDash().then(function() {
             window.location.replace('#/added');
         });*/
+        console.log('pretending to adding to dash');
         window.location.replace('#/added');
     };
     
