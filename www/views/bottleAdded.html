@@ -1,11 +1,19 @@
-<ionic-content scroll="false">
-    <h1>Congrats!</h1>
-    <p>The {{drink.Juice.Name}} has been added to your dashboard</p>
-    <button ng-click="toDash()" class="button button-calm">GO TO DASH</button>
-    <div style="">
-        <p>Share your last shot on facebook</p>
-        <div style="">
-            <i class="fa fa-facebook-official fa-5x" style="color: darkblue;" aria-hidden="true"></i>
+<ionic-content scroll="true">
+    <h1 class="pageHeader">Congrats!</h1>
+    <img src="~/../img/AdobeStock_41710038_WM.png" alt="image of fruits" style="margin-top:0; margin-bottom:0;height:20%;">
+    <p style="max-height: 10%; margin-left: 5%; margin-right: 5%;">The {{drink.Juice.Name}} has been added to your dashboard</p>
+    <button style="max-height: 10%;" ng-click="toDash()" class="button button-calm">GO TO DASH</button>
+    <div style="height: 30%;">
+        <p style="float: left; width: 60%; height: 50%; font-size: 1.25em; padding-left:5%;">Share your last shot on facebook</p>
+        <div style="float: right; width: 40%; height: 50%">
+            <a href="#" onclick="window.open('https://www.facebook.com/gingerwaldexperience', '_system')" style="margin: auto;">
+                <i class="fa fa-facebook-official fa-5x" style="color: darkblue;" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div>
+            <button class="button button-calm small-button">Yummy</button>
+            <button class="button button-calm small-button">Not bad</button>
+            <button class="button button-calm small-button" style="margin-right: 2%;">Yikes</button>
         </div>
     </div>
 </ionic-content>

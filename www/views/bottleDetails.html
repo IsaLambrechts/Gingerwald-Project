@@ -1,10 +1,11 @@
-<ionic-content scroll="false">
+<ionic-content scroll="true">
     <h1 class="pageHeader" >{{drink.Juice.Name}}</h1>
-    <div class="pageBody" ng-if="loggedIn">
+    <img src="~/../img/AdobeStock_41710038_WM.png" alt="image of fruits" style="margin-top:2.5%; margin-bottom:2.5% height:35%;">
+    <div class="pageBody" style="height: 35%;" ng-if="loggedIn">
         <button class="button button-calm" ng-click="addToDash()">Add to dash</button>
         <button class="button button-calm" ng-click="cancel()">Cancel</button>
     </div>
-    <div class="pageBody" ng-if="loggedIn == false">
+    <div class="pageBody" style="height: 35%;" ng-if="loggedIn == false">
         <button class="button button-calm" ng-click="login()">Login</button>
         <button class="button button-calm">Register</button>
     </div>

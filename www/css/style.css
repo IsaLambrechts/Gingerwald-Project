@@ -121,6 +121,14 @@ p {
     color: white;
 }
 
+.small-button {
+    font-size: 1.25em;
+    width: 30%;
+    float: left;
+    margin-left: 2%;
+    margin-right: 0;
+}
+
 @media .menu-left and (z-index: -1) {
     body {
         background-image: none;
