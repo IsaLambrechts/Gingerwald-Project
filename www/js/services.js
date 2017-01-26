@@ -69,14 +69,14 @@ angular.module('app')
         scanBottle : function() {
             /* disabled for developement
             return $cordovaBarcodeScanner.scan().then(function(imageData) {
-                bottleToken = imageData.text.substring(27, 41);
+                bottleToken = imageData.text.split('=')[1];
             }, function(error) {
                 alert("an error occured: " + error);
             });*/
             /* developement code */
             return new Promise(function(resolve, reject) { 
                 console.log('pretending to scan'); 
-                bottleToken = 'http://qr.gingerwald.com?b=Lh3UGloz6ya624'.substring(27, 41);
+                bottleToken = 'http://qr.gingerwald.com?b=Lh3UGloz6ya624'.split('=')[1];
                 resolve(bottleToken);
             });
         },
