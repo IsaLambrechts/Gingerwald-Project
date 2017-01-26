@@ -129,7 +129,7 @@ angular.module('app')
 
 .factory('dashboardSrv', function() {
     return {
-        getUserDash : function(from, to) {
+        getUserDash : function(from = null, to = null) {
             var dashUrl = url.concat('api/getUserDashboard.php?token=', token);
             if (from !== null && to !== null) {
                 dashUrl = dashUrl.concat('&report_from=', from, '&report_to=', to);
