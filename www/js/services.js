@@ -8,6 +8,9 @@ let drink;
 let userCredits;
 let userKey;
 let bottleToken;
+let bottleImageLink;
+let juiceIngredients;
+let juiceNutrients;
 
 angular.module('app')
 
@@ -87,9 +90,38 @@ angular.module('app')
                 dataType: 'json',
                 success: function(data) {
                     juiceID = data.Bottle.JuiceID;
+                    bottleImageLink = url.concat('/api/getJuicePicture.php?token=', token, '&juice_id=', juiceID);
                 },
                 error: function() {
                     console.log('could not retrieve bottle details.');
+                }
+            });
+        },
+        fetchDrinkIngredients : function() {
+            return $.ajax({
+                type: 'GET',
+                url: url.concat('api/getJuiceIngredients.php?token=', token, '&juice_id=', juiceID),
+                dataType: 'json',
+                success: function(data) {
+                    juiceIngredients = data;
+                    console.log(juiceIngredients);
+                },
+                error: function() {
+                    console.log('could not retrieve juice ingredients');
+                }
+            });
+        },
+        fetchDrinkNutrients : function() {
+            return $.ajax({
+                type: 'GET',
+                url: url.concat('api/getJuiceNutrients.php?token=', token, '&juice_id=', juiceID),
+                dataType: 'json',
+                success: function(data) {
+                    juiceNutrients = data;
+                    console.log(juiceNutrients);
+                },
+                error: function() {
+                    console.log('could not retrieve juice nutrients');
                 }
             });
         },

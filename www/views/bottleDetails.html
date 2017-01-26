@@ -1,6 +1,27 @@
+<script id="my-modal.html" type="text/ng-template">
+    <ion-modal-view ng-click="closeModal()" style="background-color: rgba(0,0,0,0.8); color: white;">
+        <ion-content style="padding-left: 10%; padding-right: 10%;">
+            <h3 style="color: white; padding-top: 10%;">Ingredients</h3>
+            <ul>
+                <li ng-repeat="item in juiceIngredients">{{item.Ingredient.Name}} : {{item.Ingredient.Amount_g}} g</li>
+            </ul>
+            <h3 style="color: white;">Nutrients</h3>
+            <ul>
+                <li ng-repeat="item in juiceNutrients">{{item.Nutrient.Description}} : {{item.Nutrient.Amount_g}} g</li>
+            </ul>
+        </ion-content>
+    </ion-modal-view>
+</script>
+
 <ionic-content scroll="true">
     <h1 class="pageHeader" >{{drink.Juice.Name}}</h1>
-    <img src="~/../img/AdobeStock_41710038_WM.png" alt="image of fruits" style="margin-top:2.5%; margin-bottom:2.5% height:35%;">
+    <div style="height: 35%;" ng-click="showBottleContent()">
+        <img src="{{bottleImage}}" style="margin-top:2.5%; margin-bottom:2.5%; height:100%; position: relative;">
+        <div style="z-index: -2; width: 100%; height: 100%; position: absolute; top: 45%;">
+            <i class="fa fa-bar-chart fa-5x" aria-hidden="true" style="padding-left: 10%;"></i>
+        </div>
+    </div>
+    
     <div class="pageBody" style="height: 35%;" ng-if="loggedIn">
         <button class="button button-calm" ng-click="addToDash()">Add to dash</button>
         <button class="button button-calm" ng-click="cancel()">Cancel</button>

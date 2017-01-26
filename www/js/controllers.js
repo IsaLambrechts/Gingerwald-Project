@@ -116,9 +116,16 @@ angular.module('app')
     };*/
 })
 
-.controller('juiceCtrl', function($scope, scanSrv) {
+.controller('juiceCtrl', function($scope, scanSrv, $ionicModal) {
     $scope.drink = drink;
     $scope.loggedIn = loggedIn;
+    $scope.bottleImage = bottleImageLink;
+    $ionicModal.fromTemplateUrl('my-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-right'
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
 
     $scope.addToDash = function() {
         /* disabled for developement
@@ -128,6 +135,20 @@ angular.module('app')
         console.log('pretending to adding to dash');
         window.location.replace('#/added');
     };
+    
+    $scope.showBottleContent = function() {
+        scanSrv.fetchDrinkNutrients().then(function() {
+            scanSrv.fetchDrinkIngredients().then(function() {
+                $scope.juiceIngredients = juiceIngredients;
+                $scope.juiceNutrients = juiceNutrients;
+                $scope.modal.show();
+            });
+        });
+    };
+    
+    $scope.closeModal = function() {
+        $scope.modal.hide();
+    }
 
     $scope.cancel = function() {
         window.location.replace('#/menu');
