@@ -82,11 +82,6 @@ angular.module('app')
         window.location.replace('#/menu');
     };
 
-    /**
-    barcodes:
-    http://qr.gingerwald.com?b=Lh3UGloz6ya624
-    http://qr.gingerwald.com?b=3DJ3DnJxtSem6W
-    **/
     $scope.scanBarcode = function() {
         scanSrv.scanBottle().then(function() {
             scanSrv.fetchDrink().then(function() {
@@ -96,7 +91,7 @@ angular.module('app')
             });
         });
     };
-    /* disabled for developement
+    /* disabled for developement */
     var permissions = cordova.plugins.permissions;
     permissions.hasPermission(permissions.CAMERA, checkPermissionCallback, null);
 
@@ -113,7 +108,7 @@ angular.module('app')
           },
           errorCallback);
       }
-    };*/
+    };
 })
 
 .controller('juiceCtrl', function($scope, scanSrv, $ionicModal) {
@@ -121,29 +116,34 @@ angular.module('app')
     $scope.loggedIn = loggedIn;
     $scope.bottleImage = bottleImageLink;
     $ionicModal.fromTemplateUrl('my-modal.html', {
-        scope: $scope,
-        animation: 'slide-in-right'
+        scope: $scope
     }).then(function(modal) {
         $scope.modal = modal;
     });
 
     $scope.addToDash = function() {
-        /* disabled for developement
+        /* disabled for developement */
         scanSrv.addToDash().then(function() {
             window.location.replace('#/added');
-        });*/
+        });
+        /* developement code */
+        /*
         console.log('pretending to adding to dash');
-        window.location.replace('#/added');
+        window.location.replace('#/added');*/
     };
     
     $scope.showBottleContent = function() {
-        scanSrv.fetchDrinkNutrients().then(function() {
-            scanSrv.fetchDrinkIngredients().then(function() {
-                $scope.juiceIngredients = juiceIngredients;
-                $scope.juiceNutrients = juiceNutrients;
-                $scope.modal.show();
+        if ($scope.juiceIngredients == null || $scope.juiceNutrients == null) {
+                scanSrv.fetchDrinkNutrients().then(function() {
+                scanSrv.fetchDrinkIngredients().then(function() {
+                    $scope.juiceIngredients = juiceIngredients;
+                    $scope.juiceNutrients = juiceNutrients;
+                    $scope.modal.show();
+                });
             });
-        });
+        } else {
+            $scope.modal.show();
+        }
     };
     
     $scope.closeModal = function() {
