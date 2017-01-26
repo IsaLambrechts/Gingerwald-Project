@@ -33,7 +33,7 @@ angular.module('app')
             loggedIn = false;
             window.location.replace('');
         },
-        
+
         fetchUserData : function() {
             return $.ajax({
                 type: 'GET',
@@ -48,7 +48,7 @@ angular.module('app')
                 }
             });
         },
-        
+
         getUserData : function() {
             return {credits: userCredits, key: userKey};
         },
@@ -74,8 +74,8 @@ angular.module('app')
                 alert("an error occured: " + error);
             });*/
             /* developement code */
-            return new Promise(function(resolve, reject) { 
-                console.log('pretending to scan'); 
+            return new Promise(function(resolve, reject) {
+                console.log('pretending to scan');
                 bottleToken = 'http://qr.gingerwald.com?b=Lh3UGloz6ya624'.substring(27, 41);
                 resolve(bottleToken);
             });
@@ -132,14 +132,30 @@ angular.module('app')
         getUserDash : function(from, to) {
             var dashUrl = url.concat('api/getUserDashboard.php?token=', token);
             if (from !== null && to !== null) {
-                dashUrl.concat('&report_from=', from, '&report_to=', to);
+                dashUrl = dashUrl.concat('&report_from=', from, '&report_to=', to);
             }
             return $.ajax({
                 type: 'GET',
                 url: dashUrl,
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data);
+                  for(var i = 0; i < data.Ingredients.length ; i++){
+                    names.push(data.Ingredients[i].Ingredient.Name);
+                    amount.push(data.Ingredients[i].Ingredient.Amount_g);
+                  }
+                  for(var i = 0; i < data.Nutrients.length; i++){
+                    namesN.push(data.Nutrients[i].Nutrient.Name);
+                    amountN.push(data.Nutrients[i].Nutrient.Amount_g);
+                  }
+                  for(var i = 0; i < names.length; i++){
+                    grouped.push({"label": names[i], "value": amount[i]})
+                  }
+
+                  for (var i = 0; i < namesN.length; i++) {
+                    groupedN.push({"label": namesN[i], "value": amountN[i]});
+                  }
+
+
                 },
                 error: function() {
                     console.log('nope');
