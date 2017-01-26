@@ -4,46 +4,10 @@ var namesN = [];
 var amountN = [];
 var grouped = [];
 var groupedN = [];
+var start = moment().startOf('week');
+var end = moment().endOf('week');
 
 angular.module('app')
-
-.factory('dashboardSrv', function() {
-    return {
-        getUserDash : function(from, to) {
-            var dashUrl = url.concat('api/getUserDashboard.php?token=', token);
-            if (from !== null && to !== null) {
-                dashUrl.concat('&report_from=', from, '&report_to=', to);
-            }
-            return $.ajax({
-                type: 'GET',
-                url: dashUrl,
-                dataType: 'json',
-                success: function(data) {
-                  for(var i = 0; i < data.Ingredients.length ; i++){
-                    names.push(data.Ingredients[i].Ingredient.Name);
-                    amount.push(data.Ingredients[i].Ingredient.Amount_g);
-                  }
-                  for(var i = 0; i < data.Nutrients.length; i++){
-                    namesN.push(data.Nutrients[i].Nutrient.Name);
-                    amountN.push(data.Nutrients[i].Nutrient.Amount_g);
-                  }
-                  for(var i = 0; i < names.length; i++){
-                    grouped.push({"label": names[i], "value": amount[i]})
-                  }
-
-                  for (var i = 0; i < namesN.length; i++) {
-                    groupedN.push({"label": namesN[i], "value": amountN[i]});
-                  }
-
-
-                },
-                error: function() {
-                    console.log('nope');
-                }
-            });
-        }
-    };
-})
 
 .controller('sideMenuCtrl', function($scope, menuSrv) {
     $scope.redirect = function(location) {
@@ -72,13 +36,13 @@ angular.module('app')
             });
         });
 	};
-    
+
     $scope.scan = function() {
         $location.url('scan');
     }
-    
+
     $ionicPlatform.registerBackButtonAction(function(event) {
-        
+
         switch ($location.path()) {
                 case '/login':
                 case '/menu': {
@@ -98,7 +62,7 @@ angular.module('app')
 })
 
 .controller('menuCtrl', function($scope, menuSrv) {
-    
+
     $scope.redirect = function(location) {
         window.location.replace('#/' + location); };
 
@@ -113,11 +77,11 @@ angular.module('app')
 })
 
 .controller('scanCtrl', function($scope, scanSrv) {
-    
+
     $scope.cancel = function() {
         window.location.replace('#/menu');
     };
-    
+
     /**
     barcodes:
     http://qr.gingerwald.com?b=Lh3UGloz6ya624
@@ -155,33 +119,65 @@ angular.module('app')
 .controller('juiceCtrl', function($scope, scanSrv) {
     $scope.drink = drink;
     $scope.loggedIn = loggedIn;
-    
+
     $scope.addToDash = function() {
-        /* disabled for developement 
+        /* disabled for developement
         scanSrv.addToDash().then(function() {
             window.location.replace('#/added');
         });*/
         console.log('pretending to adding to dash');
         window.location.replace('#/added');
     };
-    
+
     $scope.cancel = function() {
         window.location.replace('#/menu');
     };
-    
+
     $scope.login = function() {
         window.location.replace('#/login');
     }
-    
+
     $scope.toDash = function() {
         window.location.replace('#/dashboard');
     }
 })
 
 .controller('dashboardCtrl', function($scope, $http, dashboardSrv){
-  $scope.grouped = [];
-  $scope.group = [];
-  $scope.divShow = "week"
+
+  $scope.currentWeek = function(){
+    $scope.start = start;
+    $scope.end = end;
+    $scope.startDay = $scope.start.format("DD");
+    $scope.startMonth = $scope.start.format("MM");
+    $scope.startYear = $scope.start.format("YYYY");
+    $scope.endDay = $scope.end.format("DD");
+    $scope.endMonth = $scope.end.format("MM");
+    $scope.endYear = $scope.end.format("YYYY");
+    console.log(dashboardSrv.getUserDash(($scope.startYear + "-" + $scope.startMonth + "-" + $scope.startDay), ($scope.endYear + "-" + $scope.endMonth + "-" + $scope.endDay)));
+  }
+
+  $scope.currentMonth = function(){
+    start = moment().startOf('month');
+    end = moment().endOf('month');
+    $scope.start = start;
+    $scope.end = end;
+    $scope.startDay = $scope.start.format("DD");
+    $scope.startMonth = $scope.start.format("MM");
+    $scope.startYear = $scope.start.format("YYYY");
+    $scope.endDay = $scope.end.format("DD");
+    $scope.endMonth = $scope.end.format("MM");
+    $scope.endYear = $scope.end.format("YYYY");
+    console.log(dashboardSrv.getUserDash(($scope.startYear + "-" + $scope.startMonth + "-" + $scope.startDay), ($scope.endYear + "-" + $scope.endMonth + "-" + $scope.endDay)));
+  }
+
+  $scope.ever = function(){
+    console.log(dashboardSrv.getUserDash());
+  }
+
+  $scope.ever();
+
+
+  /*$scope.divShow = "week"
   $scope.show = function(x) {
     if(x == 'week'){
       $scope.divShow = "week";
@@ -214,7 +210,7 @@ angular.module('app')
     }else{
       $scope.divShow = "ever";
     }
-  }
+  }*/
 
   console.log(dashboardSrv.getUserDash());
   $scope.names = names;
