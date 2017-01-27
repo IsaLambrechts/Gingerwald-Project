@@ -1,12 +1,12 @@
 
-<div>
+<div ng-init="show('week')">
   <div style="text-align: center">
     <button class="button" ng-click="show('week')" style="width: 32%">Week</button>
     <button class="button" ng-click="show('maand')" style="width: 32%">Month</button>
     <button class="button" ng-click="show('ever')" style="width: 32%">Ever</button>
   </div>
 <br>
-<div  ng-show="divShow == 'week'" class="container" style="color: white;padding: 1.5em ; display: table; text-align: center; vertical-align: middle; font-size: 24px">
+<div ng-show="divShow == 'week'" class="container" style="color: white;padding: 1.5em ; display: table; text-align: center; vertical-align: middle; font-size: 24px">
   <div style="display: table-cell; width: 7%">
     <img src="img/circle_left.png" ng-click="back()" style="position:relative; top: 50% ; transform: translateY(-50%)"/>
   </div>
@@ -33,7 +33,7 @@
 </div>
 
 <div>
-<nvd3 options="options" data="data" api="api" refreshDataOnly=true></nvd3>
+<nvd3 options="options" data="data"  color="white" api="api" refreshDataOnly=true></nvd3>
 </div>
 <button class="button button-block" ng-click="ingredients()">INGREDIENTS</button>
 <button class="button button-block" ng-click="nutrients()">NUTRIENTS</button>

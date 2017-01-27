@@ -152,6 +152,13 @@ angular.module('app')
       $scope.end = moment().endOf('week');
       $scope.startWeek = $scope.start.format("DD/MM");
       $scope.endWeek = $scope.end.format("DD/MM");
+      $scope.startDay = $scope.start.format("DD");
+      $scope.startMonth = $scope.start.format("MM");
+      $scope.startYear = $scope.start.format("YYYY");
+      $scope.endDay = $scope.end.format("DD");
+      $scope.endMonth = $scope.end.format("MM");
+      $scope.endYear = $scope.end.format("YYYY");
+      dashboardSrv.getUserDash(($scope.startYear + "-" + $scope.startMonth + "-" + $scope.startDay), ($scope.endYear + "-" + $scope.endMonth + "-" + $scope.endDay));
       $scope.back = function(){
         $scope.startWeek = $scope.start.add(-1, 'weeks').format("DD/MM");
         $scope.endWeek = $scope.end.add(-1, 'weeks').format("DD/MM");
@@ -163,6 +170,7 @@ angular.module('app')
         $scope.endYear = $scope.end.format("YYYY");
         console.log($scope.endDay + "/" + $scope.endMonth);
         dashboardSrv.getUserDash(($scope.startYear + "-" + $scope.startMonth + "-" + $scope.startDay), ($scope.endYear + "-" + $scope.endMonth + "-" + $scope.endDay));
+        //d3.selectAll("svg > *").remove();
       }
       $scope.forward = function(){
         $scope.startWeek = $scope.start.add(1, 'weeks').format("DD/MM");
@@ -173,12 +181,8 @@ angular.module('app')
         $scope.endDay = $scope.end.format("DD");
         $scope.endMonth = $scope.end.format("MM");
         $scope.endYear = $scope.end.format("YYYY");
-        console.log($scope.endDay + "/" + $scope.endMonth);
         dashboardSrv.getUserDash(($scope.startYear + "-" + $scope.startMonth + "-" + $scope.startDay), ($scope.endYear + "-" + $scope.endMonth + "-" + $scope.endDay));
       }
-      $scope.startDay = $scope.start.format("DD");
-      console.log($scope.startDay)
-      dashboardSrv.getUserDash(($scope.startYear + "-" + $scope.startMonth + "-" + $scope.startDay), ($scope.endYear + "-" + $scope.endMonth + "-" + $scope.endDay));
     }else if(x == 'maand'){
       $scope.divShow = "maand";
       $scope.start = moment().startOf('month');
@@ -191,7 +195,6 @@ angular.module('app')
       $scope.endDay = $scope.end.endOf('month').format("DD");
       $scope.endMonths = $scope.end.endOf('month').format("MM");
       $scope.endYear = $scope.end.endOf('month').format("YYYY");
-      console.log($scope.endDay + "/" + $scope.endMonth);
       dashboardSrv.getUserDash(($scope.startYear + "-" + $scope.startMonths + "-" + $scope.startDay), ($scope.endYear + "-" + $scope.endMonths + "-" + $scope.endDay));
       $scope.back = function(){
         $scope.startMonth = $scope.start.add(-1, 'months').format("DD/MM");
@@ -208,6 +211,14 @@ angular.module('app')
       $scope.forward = function(){
         $scope.startMonth = $scope.start.add(1, 'months').format("DD/MM");
         $scope.endMonth = $scope.end.add(1, 'months').endOf('month').format("DD/MM");
+        $scope.startDay = $scope.start.format("DD");
+        $scope.startMonths = $scope.start.format("MM");
+        $scope.startYear = $scope.start.format("YYYY");
+        $scope.endDay = $scope.end.endOf('month').format("DD");
+        $scope.endMonths = $scope.end.endOf('month').format("MM");
+        $scope.endYear = $scope.end.endOf('month').format("YYYY");
+        console.log($scope.endDay + "/" + $scope.endMonth);
+        dashboardSrv.getUserDash(($scope.startYear + "-" + $scope.startMonths + "-" + $scope.startDay), ($scope.endYear + "-" + $scope.endMonths + "-" + $scope.endDay));
       }
     }else{
       $scope.divShow = "ever";
